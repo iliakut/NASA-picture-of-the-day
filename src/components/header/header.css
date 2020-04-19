@@ -1,0 +1,16 @@
+.header-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+
+.header-text {
+    color: lightslategray;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header-item {
+    width: 250px;
+}
