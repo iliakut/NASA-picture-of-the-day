@@ -1,27 +1,21 @@
 import React from 'react';
 import './header.css'
+import HeaderLogin from "./headerLogin/headerLogin";
+import HeaderDateInput from "./headerDateInput/headerDateInput";
 
 const Header = () => {
   return (
     <div>
-      <h4 className="header-text">Astronomy Picture of the Day</h4>
+      <h4 className="header-text text-info">Astronomy Picture of the Day</h4>
       <div className="header-wrap">
         <div className="header-item">
-          ???
-        </div>
-        <div className="form-group header-item">
-          <input
-            type="date"
-            className="form-control"
-            id="pictureDateInput"
-          />
-          <label className="col-form-label"
-                 htmlFor="pictureDateInput">
-            Default input
-          </label>
+          <button className="btn btn-outline-primary">All</button>
         </div>
         <div className="header-item">
-          Enter API key
+          <HeaderDateInput/>
+        </div>
+        <div className="header-item">
+          <HeaderLogin/>
         </div>
       </div>
     </div>
