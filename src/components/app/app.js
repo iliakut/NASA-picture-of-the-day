@@ -6,7 +6,7 @@ import Header from "../header/header";
 function App() {
 
   return (
-    <div>
+    <div className="app-text">
       <Header/>
     </div>
   );
