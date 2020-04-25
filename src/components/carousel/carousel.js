@@ -11,16 +11,16 @@ export default class Carousel extends Component {
     activeIndex: 0,
   };
 
-  onClickNext = () => {
+  onClickSlide = (isNext) => {
     const imageItemsLength = this.state.imageItems.length;
 
     this.setState((state) => {
       let newActiveIndex = state.activeIndex;
 
-      if (newActiveIndex === imageItemsLength - 1) {
-        newActiveIndex = 0;
+      if (isNext) {
+        newActiveIndex = this.computeNextSlide(imageItemsLength, newActiveIndex);
       } else {
-        newActiveIndex += 1;
+        newActiveIndex = this.computePreviousSlide(imageItemsLength, newActiveIndex);
       }
 
       return {
@@ -28,6 +28,22 @@ export default class Carousel extends Component {
       }
     });
   };
+
+  computeNextSlide (length, index) {
+    if (index === length - 1) {
+      return 0;
+    } else {
+      return index + 1;
+    }
+  }
+
+  computePreviousSlide (length, index) {
+    if (index === 0) {
+      return length - 1;
+    } else {
+      return index - 1;
+    }
+  }
 
   render() {
     const {imageItems, activeIndex} = this.state;
@@ -47,7 +63,13 @@ export default class Carousel extends Component {
         <div className="carousel-inner">
           {CarouselItems}
         </div>
-        <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <a
+          className="carousel-control-prev"
+          href="#carouselExampleControls"
+          role="button"
+          data-slide="prev"
+          onClick={this.onClickSlide}
+        >
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
           <span className="sr-only">Previous</span>
         </a>
@@ -56,7 +78,7 @@ export default class Carousel extends Component {
           href="#carouselExampleControls"
           role="button"
           data-slide="next"
-          onClick={this.onClickNext}
+          onClick={() => this.onClickSlide(true)}
         >
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
           <span className="sr-only">Next</span>
