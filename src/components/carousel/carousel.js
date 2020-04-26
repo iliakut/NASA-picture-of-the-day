@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import CarouselItem from "./carouselItem/carouselItem";
+import "./carousel.css";
 
 export default class Carousel extends Component {
   state = {
@@ -59,7 +60,7 @@ export default class Carousel extends Component {
     });
 
     return (
-      <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+      <div id="carouselExampleControls" className="carousel slide carousel-container" data-ride="carousel">
         <div className="carousel-inner">
           {CarouselItems}
         </div>
