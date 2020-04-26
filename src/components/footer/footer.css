@@ -1,0 +1,11 @@
+.footer-container {
+    padding: 5px 25vw 5px 25vw;
+    text-align: center;
+}
+
+@media (max-width: 425px) {
+    .footer-container {
+        padding-left: 5vw;
+        padding-right: 5vw;
+    }
+}
