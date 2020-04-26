@@ -1,7 +1,7 @@
 .header-wrap {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
@@ -13,6 +13,8 @@
 }
 
 .header-item {
-    width: 250px;
+    flex-basis: 230px;
     text-align: center;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
