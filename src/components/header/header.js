@@ -3,7 +3,7 @@ import './header.css'
 import HeaderLogin from "./headerLogin/headerLogin";
 import HeaderDateInput from "./headerDateInput/headerDateInput";
 
-const Header = () => {
+const Header = ({date}) => {
   return (
     <div>
       <h4 className="header-text text-info">Astronomy Picture of the Day</h4>
@@ -12,7 +12,9 @@ const Header = () => {
           <button className="btn btn-outline-primary">All</button>
         </div>
         <div className="header-item">
-          <HeaderDateInput/>
+          <HeaderDateInput
+            date={date}
+          />
         </div>
         <div className="header-item">
           <HeaderLogin/>
