@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './app.css';
-import NasaApi from '../../services/NasaAPIService'
+import NasaAPIService from '../../services/NasaAPIService'
 import Header from "../header/header";
 import Carousel from "../carousel/carousel";
 import Footer from "../footer/footer";
@@ -10,6 +10,14 @@ class App extends Component {
     date: this.getNow(),
   };
 
+  constructor() {
+    console.log(111)
+    super();
+    //this.updatePictureOfTheDay();
+  }
+
+  nasaService = new NasaAPIService();
+
   getNow() {
     const now = new Date();
     const day = (`0${now.getDate()}`).slice(-2);
@@ -17,6 +25,11 @@ class App extends Component {
 
     return `${now.getFullYear()}-${month}-${day}`;
   };
+
+  async updatePictureOfTheDay() {
+    const data = await this.nasaService.getData();
+    console.log(data);
+  }
 
   render() {
     const {date} = this.state;

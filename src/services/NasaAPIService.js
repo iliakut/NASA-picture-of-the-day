@@ -15,4 +15,4 @@ class NasaAPIService {
 
 }
 
-export default new NasaAPIService();
+export default NasaAPIService;
