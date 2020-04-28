@@ -52,7 +52,8 @@ export default class Carousel extends Component {
       return (
         <CarouselItem
           key={item.src}
-          src={item.src}
+          // TODO - исправить загрушку
+          src={this.props.url}
           isActive={index === activeIndex}
 
         />
