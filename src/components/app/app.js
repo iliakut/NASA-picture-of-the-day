@@ -8,12 +8,17 @@ import Footer from "../footer/footer";
 class App extends Component {
   state = {
     date: this.getNow(),
+    explanation: '',
+    url: '',
+    hdUrl: '',
+    mediaType: '',
+    title: '',
+    copyright: '',
   };
 
   constructor() {
-    console.log(111)
     super();
-    //this.updatePictureOfTheDay();
+    this.updatePictureOfTheDay(this.state.date);
   }
 
   nasaService = new NasaAPIService();
@@ -26,21 +31,40 @@ class App extends Component {
     return `${now.getFullYear()}-${month}-${day}`;
   };
 
-  async updatePictureOfTheDay() {
-    const data = await this.nasaService.getData();
-    console.log(data);
+  async updatePictureOfTheDay(date) {
+    const data = await this.nasaService.getDataInExactDay(date);
+    this.setState({
+      explanation: data.explanation,
+      url: data.url,
+      hdUrl: data.hdurl,
+      mediaType: data.media_type,
+      title: data.title,
+      copyright: data.copyright
+    })
   }
 
   render() {
-    const {date} = this.state;
+    const {
+      date,
+      explanation,
+      url,
+      title,
+      copyright
+    } = this.state;
 
     return (
       <div className="app-text">
         <Header
           date={date}
         />
-        <Carousel/>
-        <Footer/>
+        <Carousel
+          url={url}
+          title={title}
+        />
+        <Footer
+          text={explanation}
+          copyright={copyright}
+        />
       </div>
     );
   }
