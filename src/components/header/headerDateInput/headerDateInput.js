@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 
-const HeaderDateInput = ({date}) => {
+const HeaderDateInput = ({date, onDateChange}) => {
   return (
     <Fragment>
       <input
@@ -8,6 +8,7 @@ const HeaderDateInput = ({date}) => {
         className="form-control"
         id="pictureDateInput"
         value={date}
+        onChange={onDateChange}
       />
     </Fragment>
   );

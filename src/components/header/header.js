@@ -3,7 +3,7 @@ import './header.css'
 import HeaderLogin from "./headerLogin/headerLogin";
 import HeaderDateInput from "./headerDateInput/headerDateInput";
 
-const Header = ({date}) => {
+const Header = ({date, onDateChange}) => {
   return (
     <div>
       <h4 className="header-text text-info">Astronomy Picture of the Day</h4>
@@ -14,6 +14,7 @@ const Header = ({date}) => {
         <div className="header-item">
           <HeaderDateInput
             date={date}
+            onDateChange={onDateChange}
           />
         </div>
         <div className="header-item">
