@@ -1,5 +1,10 @@
 .carouselItem-image {
     height: auto;
-    max-height: 80vh;
-    width: auto;
+    max-width: 80%;
+}
+
+@media (max-width: 425px) {
+    .carouselItem-image {
+        max-width: 100%;
+    }
 }
