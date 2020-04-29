@@ -43,6 +43,13 @@ class App extends Component {
     })
   }
 
+  onDateChange = (e) => {
+    this.setState(
+      {date: e.target.value},
+      () => this.updatePictureOfTheDay(this.state.date)
+    );
+  };
+
   render() {
     const {
       date,
@@ -56,6 +63,7 @@ class App extends Component {
       <div className="app-text">
         <Header
           date={date}
+          onDateChange={this.onDateChange}
         />
         <Carousel
           url={url}
