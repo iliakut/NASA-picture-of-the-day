@@ -10,7 +10,6 @@ class NasaAPIService {
   }
 
   async getDataInExactDay(date) {
-    console.log(date)
     return this.getData(null, `&date=${date}`)
   }
 
