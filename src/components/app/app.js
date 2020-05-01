@@ -14,11 +14,12 @@ class App extends Component {
     mediaType: '',
     title: '',
     copyright: '',
+    key: null,
   };
 
   constructor() {
     super();
-    this.updatePictureOfTheDay(this.state.date);
+    this.updatePictureOfTheDay(this.state.key, this.state.date);
   }
 
   nasaService = new NasaAPIService();
@@ -31,8 +32,9 @@ class App extends Component {
     return `${now.getFullYear()}-${month}-${day}`;
   };
 
-  async updatePictureOfTheDay(date) {
-    const data = await this.nasaService.getDataInExactDay(date);
+  async updatePictureOfTheDay(key, date) {
+    const data = await this.nasaService.getDataInExactDay(key, date);
+
     this.setState({
       explanation: data.explanation,
       url: data.url,
@@ -46,8 +48,14 @@ class App extends Component {
   onDateChange = (e) => {
     this.setState(
       {date: e.target.value},
-      () => this.updatePictureOfTheDay(this.state.date)
+      () => this.updatePictureOfTheDay(this.state.key, this.state.date)
     );
+  };
+
+  onAcceptKey = (key) => {
+    this.setState({
+      key
+    })
   };
 
   render() {
@@ -64,6 +72,7 @@ class App extends Component {
         <Header
           date={date}
           onDateChange={this.onDateChange}
+          onAcceptKey={this.onAcceptKey}
         />
         <Carousel
           url={url}
