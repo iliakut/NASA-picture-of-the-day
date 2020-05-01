@@ -1,33 +1,55 @@
 import React, {Component, Fragment} from 'react';
+import './headerLogin.css';
 
 class HeaderLogin extends Component {
   state = {
-    isEnteringKey: true,
+    isForm: false,
+    localKey: null,
   };
 
-  clickLoginHandler = open => {
+  clickAcceptOrClear = (formState, clear) => {
     this.setState({
-      isEnteringKey: open
+      isForm: formState,
+    });
+
+    this.writeKey(clear);
+  };
+
+  writeKey(clear) {
+    if (clear) {
+      this.props.onAcceptKey(null);
+      this.setState({
+        localKey: null,
+      })
+    } else {
+      this.props.onAcceptKey(this.state.localKey)
+    }
+  }
+
+  onChangeInput = e => {
+    this.setState({
+      localKey: e.target.value
     })
   };
 
   render() {
-    const {isEnteringKey} = this.state;
+    const {isForm, localKey} = this.state;
     let keyHandlerElement;
 
-    if (isEnteringKey) {
+    if (isForm) {
       keyHandlerElement = (
-        <div className="form-group">
+        <div className="form-group header-login-form">
           <div className="input-group">
             <input
               type="text"
               className="form-control"
               placeholder="Enter API key"
+              onChange={this.onChangeInput}
             />
             <div className="input-group-append">
               <button
                 className="btn btn-outline-primary"
-                onClick={() => this.clickLoginHandler(false)}
+                onClick={() => this.clickAcceptOrClear(false)}
               >
                 Accept
               </button>
@@ -39,9 +61,13 @@ class HeaderLogin extends Component {
       keyHandlerElement = (
         <button
           className="btn btn-outline-primary"
-          onClick={() => this.clickLoginHandler(true)}
+          onClick={() => this.clickAcceptOrClear(true, true)}
         >
-          Enter API key
+          {
+            localKey
+            ? 'Clear key'
+            : 'Enter API key'
+          }
         </button>
       )
     }
