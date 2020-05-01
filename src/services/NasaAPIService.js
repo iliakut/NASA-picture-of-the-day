@@ -9,8 +9,8 @@ class NasaAPIService {
     return await res.json();
   }
 
-  async getDataInExactDay(date) {
-    return this.getData(null, `&date=${date}`)
+  async getDataInExactDay(key, date) {
+    return this.getData(key, `&date=${date}`)
   }
 
 }
