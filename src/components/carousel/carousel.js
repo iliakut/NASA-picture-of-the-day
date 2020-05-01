@@ -2,7 +2,7 @@ import React from "react";
 import CarouselItem from "./carouselItem/carouselItem";
 import "./carousel.css";
 
-const Carousel = ({url}) => {
+const Carousel = ({url, onClickNextPrevious}) => {
   return (
     <div id="carouselExampleControls" className="carousel slide carousel-container" data-ride="carousel">
       <div className="carousel-inner">
@@ -15,6 +15,7 @@ const Carousel = ({url}) => {
         href="#carouselExampleControls"
         role="button"
         data-slide="prev"
+        onClick={() => onClickNextPrevious(false)}
       >
         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
         <span className="sr-only">Previous</span>
@@ -24,6 +25,7 @@ const Carousel = ({url}) => {
         href="#carouselExampleControls"
         role="button"
         data-slide="next"
+        onClick={() => onClickNextPrevious(true)}
       >
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
         <span className="sr-only">Next</span>

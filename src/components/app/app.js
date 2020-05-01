@@ -7,7 +7,8 @@ import Footer from "../footer/footer";
 
 class App extends Component {
   state = {
-    date: this.getNow(),
+    date: new Date(),
+    dateString: this.getDateString(),
     explanation: '',
     url: '',
     hdUrl: '',
@@ -19,12 +20,12 @@ class App extends Component {
 
   constructor() {
     super();
-    this.updatePictureOfTheDay(this.state.key, this.state.date);
+    this.updatePictureOfTheDay(this.state.key, this.state.dateString);
   }
 
   nasaService = new NasaAPIService();
 
-  getNow() {
+  getDateString() {
     const now = new Date();
     const day = (`0${now.getDate()}`).slice(-2);
     const month = (`0${(now.getMonth() + 1)}`).slice(-2);
@@ -47,8 +48,8 @@ class App extends Component {
 
   onDateChange = (e) => {
     this.setState(
-      {date: e.target.value},
-      () => this.updatePictureOfTheDay(this.state.key, this.state.date)
+      {dateString: e.target.value},
+      () => this.updatePictureOfTheDay(this.state.key, this.state.dateString)
     );
   };
 
@@ -58,9 +59,33 @@ class App extends Component {
     })
   };
 
+  onClickNextPrevious = (next) => {
+    this.setState(state => {
+      const currentDate = state.date;
+      let day = currentDate.getDate();
+
+      if (next) {
+        day++;
+      } else {
+        day--;
+      }
+
+      currentDate.setDate(day);
+      return {
+        date: currentDate
+      }
+    });
+
+    if (next) {
+
+    } else {
+
+    }
+  };
+
   render() {
     const {
-      date,
+      dateString,
       explanation,
       url,
       title,
@@ -70,13 +95,14 @@ class App extends Component {
     return (
       <div className="app-text">
         <Header
-          date={date}
+          date={dateString}
           onDateChange={this.onDateChange}
           onAcceptKey={this.onAcceptKey}
         />
         <Carousel
           url={url}
           title={title}
+          onClickNextPrevious={this.onClickNextPrevious}
         />
         <Footer
           text={explanation}
