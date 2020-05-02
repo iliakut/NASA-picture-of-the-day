@@ -1,10 +1,19 @@
-.carouselItem-image {
+.carousel-item {
+    text-align: center;
+}
+
+.carousel-item-image {
     height: auto;
     max-width: 80%;
 }
 
 @media (max-width: 425px) {
-    .carouselItem-image {
+    .carousel-item-image {
         max-width: 100%;
     }
+}
+.carousel-item-text {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
 }
