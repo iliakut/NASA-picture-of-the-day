@@ -7,6 +7,17 @@ class HeaderLogin extends Component {
     localKey: null,
   };
 
+  constructor(props) {
+    super(props);
+
+    const key = sessionStorage.getItem('API-key');
+    if (key) {
+      this.state.localKey = key;
+      this.props.onAcceptKey(key);
+    }
+  }
+
+
   clickAcceptOrClear = (formState, clear) => {
     this.setState({
       isForm: formState,
@@ -20,9 +31,11 @@ class HeaderLogin extends Component {
       this.props.onAcceptKey(null);
       this.setState({
         localKey: null,
-      })
+      });
+      sessionStorage.removeItem('API-key');
     } else {
-      this.props.onAcceptKey(this.state.localKey)
+      this.props.onAcceptKey(this.state.localKey);
+      sessionStorage.setItem('API-key', this.state.localKey);
     }
   }
 
