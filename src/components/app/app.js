@@ -25,12 +25,12 @@ class App extends Component {
 
   nasaService = new NasaAPIService();
 
-  getDateString() {
-    const now = new Date();
-    const day = (`0${now.getDate()}`).slice(-2);
-    const month = (`0${(now.getMonth() + 1)}`).slice(-2);
+  getDateString(dateToConvert) {
+    const date = dateToConvert || new Date();
+    const day = (`0${date.getDate()}`).slice(-2);
+    const month = (`0${(date.getMonth() + 1)}`).slice(-2);
 
-    return `${now.getFullYear()}-${month}-${day}`;
+    return `${date.getFullYear()}-${month}-${day}`;
   };
 
   async updatePictureOfTheDay(key, date) {
@@ -60,27 +60,32 @@ class App extends Component {
   };
 
   onClickNextPrevious = (next) => {
-    this.setState(state => {
-      const currentDate = state.date;
-      let day = currentDate.getDate();
+    this.setState(
+      state => {
+        const currentDate = state.date;
+        let day = currentDate.getDate();
 
-      if (next) {
-        day++;
-      } else {
-        day--;
-      }
+        if (next) {
+          day++;
+        } else {
+          day--;
+        }
+        currentDate.setDate(day);
 
-      currentDate.setDate(day);
-      return {
-        date: currentDate
-      }
-    });
+        if (this.isFutureCheck(currentDate)) return;
 
-    if (next) {
+        return {
+          date: currentDate,
+          dateString: this.getDateString(currentDate)
+        }
+      },
+      () => this.updatePictureOfTheDay(this.state.key, this.state.dateString)
+    );
+  };
 
-    } else {
-
-    }
+  isFutureCheck(date) {
+    const now = new Date();
+    return now <= date;
   };
 
   render() {
