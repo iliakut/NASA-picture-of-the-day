@@ -6,7 +6,7 @@ import HeaderDateInput from "./headerDateInput/headerDateInput";
 const Header = ({date, onDateChange, onAcceptKey}) => {
   return (
     <div>
-      <h4 className="header-text text-info">Astronomy Picture of the Day</h4>
+      <h4 className="header-text">Astronomy Picture of the Day</h4>
       <div className="header-wrap">
         <div className="header-item">
           <button className="btn btn-outline-primary">All</button>
