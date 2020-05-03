@@ -1,3 +1,5 @@
+import fetchCache from "./fetchCache";
+
 class NasaAPIService {
   _apiBase = 'https://api.nasa.gov/planetary/apod';
 
@@ -5,8 +7,7 @@ class NasaAPIService {
     // по дефолту вернет сегодняшнюю picture of the day
     const apiKey = key || 'DEMO_KEY';
 
-    const res = await fetch(`${this._apiBase}/?api_key=${apiKey}${params}`);
-    return await res.json();
+    return await fetchCache._get(`${this._apiBase}/?api_key=${apiKey}${params}`);
   }
 
   async getDataInExactDay(key, date) {
