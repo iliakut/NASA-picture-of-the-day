@@ -5,7 +5,11 @@ const Footer = ({text, copyright}) => {
   return (
      <div className="footer-container">
        {text}
-       <div>©{copyright}</div>
+       {
+         copyright
+         ? <div>© {copyright}</div>
+         : null
+       }
      </div>
   );
 };

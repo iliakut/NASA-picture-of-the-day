@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import './app.css';
 import NasaAPIService from '../../services/NasaAPIService'
 import Header from "../header/header";
 import Carousel from "../carousel/carousel";
 import Footer from "../footer/footer";
+import Spinner from "../UI/spinner";
 
 class App extends Component {
   state = {
@@ -17,10 +18,10 @@ class App extends Component {
     copyright: '',
     key:  sessionStorage.getItem('API-key'),
     pictureDate: '',
+    loading: true,
   };
 
-  constructor() {
-    super();
+  componentDidMount() {
     this.updatePictureOfTheDay(this.state.key, this.state.dateString);
   }
 
@@ -35,6 +36,7 @@ class App extends Component {
   };
 
   async updatePictureOfTheDay(key, date) {
+    this.setLoading(true);
     if (this.state.pictureDate === date) return;
 
     const data = await this.nasaService.getDataInExactDay(key, date);
@@ -46,7 +48,14 @@ class App extends Component {
       mediaType: data.media_type,
       title: data.title,
       copyright: data.copyright,
-      pictureDate: data.date
+      pictureDate: data.date,
+      loading: false
+    })
+  }
+
+  setLoading(loading) {
+    this.setState({
+      loading
     })
   }
 
@@ -97,8 +106,26 @@ class App extends Component {
       explanation,
       url,
       title,
-      copyright
+      copyright,
+      loading
     } = this.state;
+
+    let mainContent = <Spinner/>;
+    if (!loading) {
+      mainContent = (
+        <Fragment>
+          <Carousel
+            url={url}
+            title={title}
+            onClickNextPrevious={this.onClickNextPrevious}
+          />
+          <Footer
+            text={explanation}
+            copyright={copyright}
+          />
+        </Fragment>
+      )
+    }
 
     return (
       <div className="app-text">
@@ -107,15 +134,7 @@ class App extends Component {
           onDateChange={this.onDateChange}
           onAcceptKey={this.onAcceptKey}
         />
-        <Carousel
-          url={url}
-          title={title}
-          onClickNextPrevious={this.onClickNextPrevious}
-        />
-        <Footer
-          text={explanation}
-          copyright={copyright}
-        />
+        {mainContent}
       </div>
     );
   }
