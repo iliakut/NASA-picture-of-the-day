@@ -15,7 +15,8 @@ class App extends Component {
     mediaType: '',
     title: '',
     copyright: '',
-    key: null,
+    key:  sessionStorage.getItem('API-key'),
+    pictureDate: '',
   };
 
   constructor() {
@@ -34,6 +35,8 @@ class App extends Component {
   };
 
   async updatePictureOfTheDay(key, date) {
+    if (this.state.pictureDate === date) return;
+
     const data = await this.nasaService.getDataInExactDay(key, date);
 
     this.setState({
@@ -42,7 +45,8 @@ class App extends Component {
       hdUrl: data.hdurl,
       mediaType: data.media_type,
       title: data.title,
-      copyright: data.copyright
+      copyright: data.copyright,
+      pictureDate: data.date
     })
   }
 
@@ -54,6 +58,7 @@ class App extends Component {
   };
 
   onAcceptKey = (key) => {
+    if (this.state.key === key) return;
     this.setState({
       key
     })
@@ -71,15 +76,13 @@ class App extends Component {
           day--;
         }
         currentDate.setDate(day);
-
         if (this.isFutureCheck(currentDate)) return;
-
         return {
           date: currentDate,
           dateString: this.getDateString(currentDate)
         }
       },
-      () => this.updatePictureOfTheDay(this.state.key, this.state.dateString)
+      () =>  this.updatePictureOfTheDay(this.state.key, this.state.dateString)
     );
   };
 
