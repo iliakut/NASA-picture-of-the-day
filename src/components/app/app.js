@@ -63,7 +63,7 @@ class App extends Component {
     if (error) {
       this.setState({
         error: true,
-        errorMessage: error.msg,
+        errorMessage: error.msg
       })
     } else {
       this.setState({
