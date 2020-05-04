@@ -5,6 +5,7 @@ import Header from "../header/header";
 import Carousel from "../carousel/carousel";
 import Footer from "../footer/footer";
 import Spinner from "../UI/spinner";
+import Alert from "../UI/alert";
 
 class App extends Component {
   state = {
@@ -19,6 +20,8 @@ class App extends Component {
     key:  sessionStorage.getItem('API-key'),
     pictureDate: '',
     loading: true,
+    error: false,
+    errorMessage: '',
   };
 
   componentDidMount() {
@@ -39,18 +42,35 @@ class App extends Component {
     this.setLoading(true);
     if (this.state.pictureDate === date) return;
 
-    const data = await this.nasaService.getDataInExactDay(key, date);
+    try {
+      const data = await this.nasaService.getDataInExactDay(key, date);
+      this.setState({
+        explanation: data.explanation,
+        url: data.url,
+        hdUrl: data.hdurl,
+        mediaType: data.media_type,
+        title: data.title,
+        copyright: data.copyright,
+        pictureDate: data.date,
+        loading: false
+      })
+    } catch (e) {
+      this.errorHandler(e);
+    }
+  }
 
-    this.setState({
-      explanation: data.explanation,
-      url: data.url,
-      hdUrl: data.hdurl,
-      mediaType: data.media_type,
-      title: data.title,
-      copyright: data.copyright,
-      pictureDate: data.date,
-      loading: false
-    })
+  errorHandler(error) {
+    if (error) {
+      this.setState({
+        error: true,
+        errorMessage: error.msg,
+      })
+    } else {
+      this.setState({
+        error: false,
+        errorMessage: '',
+      })
+    }
   }
 
   setLoading(loading) {
@@ -107,11 +127,15 @@ class App extends Component {
       url,
       title,
       copyright,
-      loading
+      loading,
+      error,
+      errorMessage
     } = this.state;
 
     let mainContent = <Spinner/>;
-    if (!loading) {
+    if (error) {
+      mainContent = <Alert message={errorMessage}/>
+    } else if (!loading) {
       mainContent = (
         <Fragment>
           <Carousel
