@@ -8,7 +8,12 @@ class fetchCache {
 
     const res = await fetch(input);
     const data = await res.json();
-    this.cache[input] = data;
+    if (!res.ok) {
+
+      throw data;
+    } else {
+      this.cache[input] = data;
+    }
 
     return data;
   };
