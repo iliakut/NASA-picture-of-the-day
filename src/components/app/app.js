@@ -39,9 +39,8 @@ class App extends Component {
   };
 
   async updatePictureOfTheDay(key, date) {
-    this.setLoading(true);
     if (this.state.pictureDate === date) return;
-
+    this.setLoading(true);
     try {
       const data = await this.nasaService.getDataInExactDay(key, date);
       this.setState({
