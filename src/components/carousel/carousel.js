@@ -2,11 +2,12 @@ import React from "react";
 import CarouselItem from "./carouselItem/carouselItem";
 import "./carousel.css";
 
-const Carousel = ({url, onClickNextPrevious, title}) => {
+const Carousel = ({url, onClickNextPrevious, title, mediaType}) => {
   return (
     <div id="carouselExampleControls" className="carousel slide carousel-container" data-ride="carousel">
       <div className="carousel-inner">
         <CarouselItem
+          mediaType={mediaType}
           src={url}
           title={title}
         />

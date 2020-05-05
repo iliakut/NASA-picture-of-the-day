@@ -52,7 +52,9 @@ class App extends Component {
         title: data.title,
         copyright: data.copyright,
         pictureDate: data.date,
-        loading: false
+        loading: false,
+        error: false,
+        errorMessage: ''
       })
     } catch (e) {
       this.errorHandler(e);
@@ -129,7 +131,8 @@ class App extends Component {
       copyright,
       loading,
       error,
-      errorMessage
+      errorMessage,
+      mediaType
     } = this.state;
 
     let mainContent = <Spinner/>;
@@ -141,6 +144,7 @@ class App extends Component {
           <Carousel
             url={url}
             title={title}
+            mediaType={mediaType}
             onClickNextPrevious={this.onClickNextPrevious}
           />
           <Footer
