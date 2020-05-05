@@ -9,7 +9,7 @@ const Header = ({date, onDateChange, onAcceptKey}) => {
       <h4 className="header-text">Astronomy Picture of the Day</h4>
       <div className="header-wrap">
         <div className="header-item">
-          <button className="btn btn-outline-primary">All</button>
+          {/*<button className="btn btn-outline-primary">All</button>*/}
         </div>
         <div className="header-item">
           <HeaderDateInput
