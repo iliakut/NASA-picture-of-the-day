@@ -4,7 +4,7 @@ import "./carousel.css";
 
 const Carousel = ({url, onClickNextPrevious, title, mediaType}) => {
   return (
-    <div id="carouselExampleControls" className="carousel slide carousel-container" data-ride="carousel">
+    <div id="carouselControls" className="carousel slide carousel-container" data-ride="carousel">
       <div className="carousel-inner">
         <CarouselItem
           mediaType={mediaType}
@@ -14,7 +14,7 @@ const Carousel = ({url, onClickNextPrevious, title, mediaType}) => {
       </div>
       <a
         className="carousel-control-prev"
-        href="#carouselExampleControls"
+        href="#"
         role="button"
         data-slide="prev"
         onClick={() => onClickNextPrevious(false)}
@@ -24,7 +24,7 @@ const Carousel = ({url, onClickNextPrevious, title, mediaType}) => {
       </a>
       <a
         className="carousel-control-next"
-        href="#carouselExampleControls"
+        href="#"
         role="button"
         data-slide="next"
         onClick={() => onClickNextPrevious(true)}
